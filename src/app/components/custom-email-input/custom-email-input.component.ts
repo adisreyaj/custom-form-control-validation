@@ -16,7 +16,10 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NgControl } from '@
 import debounce from 'just-debounce';
 import { BehaviorSubject, tap } from 'rxjs';
 import { CustomEmail } from './custom-email-input.interface';
-import { getCustomEmailValidator } from './custom-email-input.validator';
+import {
+  getCustomEmailValidator,
+  getCustomUsernameValidator,
+} from './custom-email-input.validator';
 
 @Component({
   selector: 'email-selector',
@@ -144,6 +147,7 @@ export class CustomEmailSelectorComponent
    */
   ngOnInit() {
     this.control = this.ngControl.control;
+    this.control?.setValidators(getCustomUsernameValidator);
     this.control?.setAsyncValidators(getCustomEmailValidator(this.email$, this.loading$));
     this.control?.updateValueAndValidity();
   }
